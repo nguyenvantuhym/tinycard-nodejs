@@ -14,10 +14,13 @@ class Database{
     //connect database
     async _connect()
     {
-       await  mongoose.connect('mongodb://localhost:27017/BTL',
-                                {useNewUrlParser: true })
-            .then(()=>console.log('Database connection successful'))
-            .catch(()=>console.log('Database connection error!!'));
+       const url='mongodb+srv://admin:admin@cluster0-kwozd.mongodb.net/BTL?retryWrites=true&w=majority';
+       await  mongoose.connect(url,{ useNewUrlParser: true })
+            .then((err,client)=>{
+                    
+                    console.log('Database connection successful');
+                })
+            .catch((err)=>console.log('Database connection error!!'+err));
     }
     
     // create new account

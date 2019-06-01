@@ -4,7 +4,7 @@ const session = require('express-session');
 const path = require('path');
 const cors = require('cors');
 const app = express();
-const port = 3030;
+const port = process.env.PORT || 3030;
 
 app.listen(port,()=>{
     console.log("hello");
@@ -24,6 +24,11 @@ app.post('/createAcount',async (req,res)=>{
 
     //console.log(newuser);
      let result = await database.createAccount(req.body);
+    if(result === true)
+    {
+        req.session.user = req.body.username;
+        req.session.save();
+    }
    
     res.json({status:result});
 });
